@@ -1,46 +1,111 @@
 #include <stdio.h>
+#include <string.h>
 
-int main(void) {
-	int times = 20;
-	char primeiro[];
-	int primeiro_pontos;
-	char ultimo[];
-	int ultimo_pontos;
-	
-	int pts_vitoria = 3;
-	int pts_empate = 1;
-	int pts_derrota = 0;
-	
+int qtdeTimes = 3;
 
-	char nome[];
+int pts_vitoria = 3;
+int pts_empate = 1;
+int pts_derrota = 0;
+
+char pNome[20];
+int pPontos = 0;
+int pVitorias = 0;
+int pEmpates = 0;
+int pDerrotas = 0;
+
+char uNome[20];
+int uPontos = 0;
+int uVitorias = 0;
+int uEmpates = 0;
+int uDerrotas = 0;
+
+int atualizarPrimeiro(char *nome, int pontos, int vitorias, int empates, int derrotas)
+{
+	strcpy(pNome, nome);
+	pPontos = pontos;
+	pVitorias = vitorias;
+	pEmpates = empates;
+	pDerrotas = derrotas;
+
+	return 0;
+}
+
+int atualizarUltimo(char *nome, int pontos, int vitorias, int empates, int derrotas)
+{
+	strcpy(uNome, nome);
+	uPontos = pontos;
+	uVitorias = vitorias;
+	uEmpates = empates;
+	uDerrotas = derrotas;
+
+	return 0;
+}
+
+int main(void)
+{
+	char nome[20];
 	int vitorias;
 	int empates;
-	int total_pontos;
-	int i = 0;
+	int derrotas;
+	int totalPontos;
+	int i;
 
-	for (i; i < times; i++) {
+	for (i = 0; i < qtdeTimes; i++)
+	{
 		printf("Digite o nome do time: ");
-		scanf("%c", &nome);
+		scanf("%s", nome);
 		printf("Digite o número de vitórias: ");
 		scanf("%d", &vitorias);
 		printf("Digite o número de empates: ");
 		scanf("%d", &empates);
 		printf("Digite o número de derrotas: ");
+		scanf("%d", &derrotas);
 
-		total_pontos = vitorias * pts_vitoria + empates * pts_empate;
+		totalPontos = (vitorias * pts_vitoria) + (empates * pts_empate);
 
-		if (total_pontos > primeiro_pontos) {
-			primeiro = nome;
-			primeiro_pontos = total_pontos;
+		if (i == 0)
+		{
+			atualizarPrimeiro(nome, totalPontos, vitorias, empates, derrotas);
+			atualizarUltimo(nome, totalPontos, vitorias, empates, derrotas);
 		}
+		else
+		{
 
-		if (total_pontos < ultimo_pontos) {
-			ultimo = nome;
-			ultimo_pontos = total_pontos;
+			if (totalPontos > pPontos)
+			{
+				atualizarPrimeiro(nome, totalPontos, vitorias, empates, derrotas);
+			}
+
+			if (totalPontos == pPontos)
+			{
+				if (
+					vitorias > pVitorias ||
+					(vitorias == pVitorias && empates > pEmpates) ||
+					(vitorias == pVitorias && empates == pEmpates && derrotas < pDerrotas))
+				{
+					atualizarPrimeiro(nome, totalPontos, vitorias, empates, derrotas);
+				}
+			}
+
+			if (totalPontos < uPontos)
+			{
+				atualizarUltimo(nome, totalPontos, vitorias, empates, derrotas);
+			}
+
+			if (totalPontos == uPontos)
+			{
+				if (
+					vitorias < pVitorias ||
+					(vitorias == pVitorias && empates < pEmpates) ||
+					(vitorias == pVitorias && empates == pEmpates && derrotas > pDerrotas))
+				{
+					atualizarUltimo(nome, totalPontos, vitorias, empates, derrotas);
+				}
+			}
 		}
 	}
 
-	printf("O time vencedor é o %c e o último colocado é o %c", primeiro, ultimo)
-	
+	printf("O time vencedor é o %s, com %d pontos, e o último colocado é o %s, com %d pontos.\n", pNome, pPontos, uNome, uPontos);
+
 	return 0;
 }
