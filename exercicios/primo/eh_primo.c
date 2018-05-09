@@ -24,9 +24,8 @@ int eh_primo(int n){
 	while(div > 1) {
 		if (n % div == 0) {
 			return 0;
-        } else {
-			div--;
-		}
+        } 
+		div--;
 	}
 
 	return 1;
