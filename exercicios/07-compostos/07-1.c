@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-int itens_counter = 0;
 struct ItemCardapio {
     int id;
     char nome[50];
@@ -8,6 +7,7 @@ struct ItemCardapio {
 };
 
 void preenche(struct ItemCardapio* item) {
+    static int itens_counter = 0;
     char temp;
     (*item).id = ++itens_counter;
 
