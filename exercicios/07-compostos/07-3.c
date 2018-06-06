@@ -1,17 +1,20 @@
 #include <stdio.h>
 
-struct Posicao {
+struct Posicao
+{
 	int x;
 	int y;
 };
 
-struct Personagem {
+struct Personagem
+{
 	char simbolo;
 	int pontos;
 	struct Posicao posicao;
 };
 
-void constroiPosicao(struct Posicao* p) {
+void constroiPosicao(struct Posicao *p)
+{
 	printf("x: ");
 	scanf("%d", &(*p).x);
 
@@ -19,7 +22,8 @@ void constroiPosicao(struct Posicao* p) {
 	scanf("%d", &(*p).y);
 }
 
-void constroiPersonagem(struct Personagem* p) {
+void constroiPersonagem(struct Personagem *p)
+{
 	printf("Nome do personagem: ");
 	scanf("%c", &(*p).simbolo);
 
@@ -29,22 +33,27 @@ void constroiPersonagem(struct Personagem* p) {
 	constroiPosicao(&(*p).posicao);
 }
 
-void constroiPersonagens(struct Personagem* personagens, int qtde) {
+void constroiPersonagens(struct Personagem *personagens, int qtde)
+{
 	int i = 0;
 
-	while (i < qtde) {
-		printf("Entre com os dados do personagem (%d de %d)", i+1, qtde);
+	while (i < qtde)
+	{
+		printf("Entre com os dados do personagem (%d de %d)", i + 1, qtde);
 		constroiPersonagem(&personagens[i]);
 		i++;
-	}	
+	}
 }
 
-char getPersonagem(struct Personagem* personagens, int tamArray, int x, int y) {
-	int i = 0; 
+char getPersonagem(struct Personagem *personagens, int tamArray, int x, int y)
+{
+	int i = 0;
 
-	while (i < tamArray) {
+	while (i < tamArray)
+	{
 		struct Personagem p = personagens[i];
-		if (p.posicao.x == x && p.posicao.y == y) {
+		if (p.posicao.x == x && p.posicao.y == y)
+		{
 			return p.simbolo;
 		}
 		i++;
@@ -53,19 +62,29 @@ char getPersonagem(struct Personagem* personagens, int tamArray, int x, int y) {
 	return 0;
 }
 
-void imprimePersonagens(struct Personagem* personagens, int qtde) {
-	int linha = 0, coluna = 0;	
+void imprimePersonagens(struct Personagem *personagens, int qtde)
+{
+	char matriz[10][10];
+
+	for (int i = 0; i < qtde; i++)
+	{
+		struct Personagem p = personagens[i];
+		matriz[p.posicao.x][p.posicao.y] = p.simbolo;
+	}
+
+	int linha = 0, coluna = 0;
 
 	printf("  0 1 2 3 4 5 6 7 8 9 \n");
 
-	for (;linha < 10; linha++) {
-		
+	for (; linha < 10; linha++)
+	{
+
 		printf("%d ", linha);
 
-		for (; coluna < 10; coluna++) {
-			char c = getPersonagem(personagens, 9, linha, coluna);
-			if (c)
-				printf("%c ", c);
+		for (; coluna < 10; coluna++)
+		{
+			if (matriz[linha][coluna])
+				printf("%c ", matriz[linha][coluna]);
 			else
 				printf("  ");
 		}
@@ -74,15 +93,15 @@ void imprimePersonagens(struct Personagem* personagens, int qtde) {
 	}
 
 	printf("\n");
-
 }
 
-int main(void) {
-	int n = 1;
+int main(void)
+{
+	int n = 2;
 	struct Personagem personagens[n];
-	
+
 	constroiPersonagens(personagens, n);
-	imprimePersonagens(personagens, n);	
+	imprimePersonagens(personagens, n);
 
 	return 0;
 }
