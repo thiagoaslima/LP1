@@ -54,7 +54,7 @@ void preenche2(struct Cardapio *cardapio)
     (*cardapio).qtdeBebidas = 0;
     (*cardapio).qtdeSobremesas = 0;
 
-    printf("Cadastre um item no cardápio: ");
+    printf("Cadastre um item no cardápio: \n");
 
     while (keep_going)
     {
@@ -131,7 +131,6 @@ void imprimirCardapio(struct Cardapio cardapio)
 
 int main(void)
 {
-
     struct Cardapio cardapio;
 
     preenche2(&cardapio);

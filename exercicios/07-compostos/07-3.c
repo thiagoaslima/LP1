@@ -63,9 +63,9 @@ void imprimePersonagens(struct Personagem* personagens, int qtde) {
 		printf("%d ", linha);
 
 		for (; coluna < 10; coluna++) {
-			char s = getPersonagem(personagens, qtde, linha, coluna);
-			if (s)
-				printf("%c ", s);
+			char c = getPersonagem(personagens, 9, linha, coluna);
+			if (c)
+				printf("%c ", c);
 			else
 				printf("  ");
 		}
