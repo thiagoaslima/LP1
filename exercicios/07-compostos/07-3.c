@@ -15,22 +15,25 @@ struct Personagem
 
 void constroiPosicao(struct Posicao *p)
 {
-	printf("x: ");
+	printf("linha: ");
 	scanf("%d", &(*p).x);
 
-	printf("y: ");
+	printf("coluna: ");
 	scanf("%d", &(*p).y);
 }
 
 void constroiPersonagem(struct Personagem *p)
 {
-	printf("Nome do personagem: ");
-	scanf("%c", &(*p).simbolo);
-
+	char temp;
 	(*p).pontos = 0;
 
-	printf("Posição do personagem: ");
+    printf("Símbolo do personagem: ");
+    scanf("%[^\n]", &(*p).simbolo);
+
+    printf("Posição do personagem: \n");
 	constroiPosicao(&(*p).posicao);
+
+	scanf("%c", &temp);
 }
 
 void constroiPersonagens(struct Personagem *personagens, int qtde)
@@ -39,7 +42,7 @@ void constroiPersonagens(struct Personagem *personagens, int qtde)
 
 	while (i < qtde)
 	{
-		printf("Entre com os dados do personagem (%d de %d)", i + 1, qtde);
+		printf("\nEntre com os dados do personagem (%d de %d)\n", i + 1, qtde);
 		constroiPersonagem(&personagens[i]);
 		i++;
 	}
@@ -62,9 +65,9 @@ char getPersonagem(struct Personagem *personagens, int tamArray, int x, int y)
 	return 0;
 }
 
-void imprimePersonagens(struct Personagem *personagens, int qtde)
+void imprimeMapaJogo(struct Personagem *personagens, int qtde)
 {
-	char matriz[10][10];
+	char matriz[10][10] = {0};
 
 	for (int i = 0; i < qtde; i++)
 	{
@@ -78,7 +81,7 @@ void imprimePersonagens(struct Personagem *personagens, int qtde)
 
 	for (; linha < 10; linha++)
 	{
-
+		coluna = 0; 
 		printf("%d ", linha);
 
 		for (; coluna < 10; coluna++)
@@ -97,11 +100,11 @@ void imprimePersonagens(struct Personagem *personagens, int qtde)
 
 int main(void)
 {
-	int n = 2;
-	struct Personagem personagens[n];
+	int n = 10;
+	struct Personagem personagens[10];
 
 	constroiPersonagens(personagens, n);
-	imprimePersonagens(personagens, n);
+	imprimeMapaJogo(personagens, n);
 
 	return 0;
 }
